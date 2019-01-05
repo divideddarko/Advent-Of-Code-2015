@@ -16,52 +16,110 @@ $Direction = $Direction.ToCharArray()
 $X = 0
 $Y = 0
 #create hash table, key is value of x,y value is value++
-$NewHouse = @{}
+$Santa = @{}
+$RoboSanta = @{}
+$Results = @{}
+
 #Add a starting location
-$NewHouse.Add("X$($x):Y$($y)", 1)
+$Santa.Add("X$($x):Y$($y)", 2)
+
 
 $Direction | ForEach-Object {
+     
      #check what the input is equal to
-     if ($_ -eq ">") {
-          #increate X direction from starting 0
-          $X++
-          #get an item from the hash array + 1 if it exists
-          $AddVal = $NewHouse.Item("X$($X):Y$($Y)") + 1
-          #does the hash array contain the coords already given if so set the new value to $a
-          if ($NewHouse.Contains("X$($X):Y$($Y)")) {
-               $NewHouse.Set_Item("X$($X):Y$($Y)", $AddVal)
-          } else {
-               #Add value to hash if it doesn't already exist.
-               $NewHouse.Add("X$($X):Y$($Y)", 1)
+     if($i % 2){
+          if ($_ -eq ">") {
+               #increate X direction from starting 0
+               $X++
+               #get an item from the hash array + 1 if it exists
+               $AddVal = $Santa.Item("X$($X):Y$($Y)") + 1
+               #does the hash array contain the coords already given if so set the new value to $a
+               if ($Santa.Contains("X$($X):Y$($Y)")) {
+                    $Santa.Set_Item("X$($X):Y$($Y)", $AddVal)
+               } else {
+                    #Add value to hash if it doesn't already exist.
+                    $Santa.Add("X$($X):Y$($Y)", 1)
+               }
+          }
+          if ($_ -eq "<") {
+               $X--
+               $AddVal = $Santa.Item("X$($X):Y$($Y)") + 1
+               if ($Santa.Contains("X$($X):Y$($Y)")) {
+                    $Santa.Set_Item("X$($X):Y$($Y)", $AddVal)
+               } else {
+                    $Santa.Add("X$($X):Y$($Y)", 1)
+               }
+          }
+          if ($_ -eq "^") {
+               $Y++
+               $AddVal = $Santa.Item("X$($X):Y$($Y)") + 1
+               if ($Santa.Contains("X$($X):Y$($Y)")) {
+                    $Santa.Set_Item("X$($X):Y$($Y)", $AddVal)
+               } else {
+                    $Santa.Add("X$($X):Y$($Y)", 1)
+               }
+          }
+          if ($_ -eq "v") {
+               $Y--
+               $AddVal = $Santa.Item("X$($X):Y$($Y)") + 1
+               if ($Santa.Contains("X$($X):Y$($Y)")) {
+                    $Santa.Set_Item("X$($X):Y$($Y)", $AddVal)
+               } else {
+                    $Santa.Set_Item("X$($X):Y$($Y)", 1)
+               }
+          }
+     }else{
+          if ($_ -eq ">") {
+               #increate X direction from starting 0
+               $X++
+               #get an item from the hash array + 1 if it exists
+               $AddVal = $RoboSanta.Item("X$($X):Y$($Y)") + 1
+               #does the hash array contain the coords already given if so set the new value to $a
+               if ($RoboSanta.Contains("X$($X):Y$($Y)")) {
+                    $RoboSanta.Set_Item("X$($X):Y$($Y)", $AddVal)
+               } else {
+                    #Add value to hash if it doesn't already exist.
+                    $RoboSanta.Add("X$($X):Y$($Y)", 1)
+               }
+          }
+          if ($_ -eq "<") {
+               $X--
+               $AddVal = $RoboSanta.Item("X$($X):Y$($Y)") + 1
+               if ($RoboSanta.Contains("X$($X):Y$($Y)")) {
+                    $RoboSanta.Set_Item("X$($X):Y$($Y)", $AddVal)
+               } else {
+                    $RoboSanta.Add("X$($X):Y$($Y)", 1)
+               }
+          }
+          if ($_ -eq "^") {
+               $Y++
+               $AddVal = $RoboSanta.Item("X$($X):Y$($Y)") + 1
+               if ($RoboSanta.Contains("X$($X):Y$($Y)")) {
+                    $RoboSanta.Set_Item("X$($X):Y$($Y)", $AddVal)
+               } else {
+                    $RoboSanta.Add("X$($X):Y$($Y)", 1)
+               }
+          }
+          if ($_ -eq "v") {
+               $Y--
+               $AddVal = $RoboSanta.Item("X$($X):Y$($Y)") + 1
+               if ($RoboSanta.Contains("X$($X):Y$($Y)")) {
+                    $RoboSanta.Set_Item("X$($X):Y$($Y)", $AddVal)
+               } else {
+                    $RoboSanta.Set_Item("X$($X):Y$($Y)", 1)
+               }
           }
      }
-     if ($_ -eq "<") {
-          $X--
-          $AddVal = $NewHouse.Item("X$($X):Y$($Y)") + 1
-          if ($NewHouse.Contains("X$($X):Y$($Y)")) {
-               $NewHouse.Set_Item("X$($X):Y$($Y)", $AddVal)
-          } else {
-               $NewHouse.Add("X$($X):Y$($Y)", 1)
-          }
-     }
-     if ($_ -eq "^") {
-          $Y++
-          $AddVal = $NewHouse.Item("X$($X):Y$($Y)") + 1
-          if ($NewHouse.Contains("X$($X):Y$($Y)")) {
-               $NewHouse.Set_Item("X$($X):Y$($Y)", $AddVal)
-          } else {
-               $NewHouse.Add("X$($X):Y$($Y)", 1)
-          }
-     }
-     if ($_ -eq "v") {
-          $Y--
-          $AddVal = $NewHouse.Item("X$($X):Y$($Y)") + 1
-          if ($NewHouse.Contains("X$($X):Y$($Y)")) {
-               $NewHouse.Set_Item("X$($X):Y$($Y)", $AddVal)
-          } else {
-               $NewHouse.Set_Item("X$($X):Y$($Y)", 1)
-          }
+     $i++
+}
+
+#compare the two hash tables to where they overlap
+#
+#
+#
+
+$RoboSanta | ForEach-Object{
+     if($Santa -match $RoboSanta){
+          $Results.Add_Item("$RoboSanta")
      }
 }
-#output the count of hasharray this will give anything above 1
-"$($NewHouse.Count)"
